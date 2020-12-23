@@ -1,119 +1,13 @@
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 public class MatheImAdvent extends JFrame {
-    private final JPanel contentPane = new JPanel();
-    private final JLabel lblStartSeconds = new JLabel("Green seconds: ");
-    private final JLabel lblTime = new JLabel("Time: ");
-    private final JPanel pnlPippin = new JPanel();
-    private final JPanel pnlWilli = new JPanel();
-    private final JTextField tfStartSeconds = new JTextField();
 
     public static void main(String[] args) {
         // day11(1000000);
-        // day21();
-        day22();
+        day21();
     }
 
-    /**
-     * Create the frame
-     */
-    public MatheImAdvent() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // close operation
-        setBounds(10, 10, 400, 400); // standard size (if not fullscreen)
-        contentPane.setLayout(null); // mandatory for creating the layout
-        setContentPane(contentPane);
-
-        lblStartSeconds.setBounds(10, 10, 100, 20);
-        lblTime.setBounds(10, 40, 100, 20);
-        tfStartSeconds.setBounds(120, 10, 100, 20);
-        pnlPippin.setBounds(10, 100, 20, 20);
-        pnlWilli.setBounds(10, 200, 20, 20);
-        pnlPippin.setBackground(Color.BLUE);
-        pnlWilli.setBackground(Color.CYAN);
-        JButton btnStart = new JButton("Start");
-        btnStart.setBounds(230, 10, 100, 20);
-        btnStart.addActionListener(e -> {
-            final int durationGreenPhase = 25, durationYellowRedPhase = 35, distanceBetween = 600;
-            String phase = "Green";
-            int time = 0, timeSinceStart = 0, distancePippin = 0, distanceWilli = 0;
-            int trafficLightSecondsLeft = checkInputDay22(tfStartSeconds.getText(), durationGreenPhase);
-            if (trafficLightSecondsLeft > -1) {
-                System.out.println("When Pippin and Willi arrive at traffic lights 1, there are " + trafficLightSecondsLeft + " seconds left of green phase");
-                while (true) {
-                    try {
-                        time++;
-                        timeSinceStart++;
-                        distancePippin += 20; // 20 m/s
-                        distanceWilli += 10; // 10 m/s
-                        // If the traffic lights have to switch
-                        if (time == trafficLightSecondsLeft) {
-                            time = 0; // Reset time
-                            if (phase.equals("Green")) {
-                                phase = "Yellow/Red";
-                                trafficLightSecondsLeft = durationYellowRedPhase;
-                            } else {
-                                phase = "Green";
-                                trafficLightSecondsLeft = durationGreenPhase;
-                            }
-                            System.out.println("Traffic lights switch to " + phase);
-                            //System.out.println("Pippin has made " + distancePippin + "m");
-                            //System.out.println("Willi has made " + distanceWilli + "m");
-                        }
-                        if (distancePippin % distanceBetween == 0) {
-                            System.out.println("Pippin has arrived at traffic light 1, it is " + phase);
-                        }
-                        if (distanceWilli % distanceBetween == 0) {
-                            System.out.println("Willi has arrived at traffic light 1, it is " + phase);
-                        }
-                        Thread.sleep(1000); // wait 1 second
-                        pnlPippin.setBounds(10 + distancePippin / 10, 100, 20, 20);
-                        pnlWilli.setBounds(10 + distanceWilli / 10, 200, 20, 20);
-                        lblTime.setText("Time " + timeSinceStart + " s");
-                        super.update(this.getGraphics());
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            }
-        });
-        contentPane.add(lblStartSeconds);
-        contentPane.add(lblTime);
-        contentPane.add(tfStartSeconds);
-        contentPane.add(pnlPippin);
-        contentPane.add(pnlWilli);
-        contentPane.add(btnStart);
-    }
-
-    private int checkInputDay22(String input, int durationGreenPhase) {
-        int trafficLightSecondsLeft;
-        try {
-            trafficLightSecondsLeft = (durationGreenPhase - Integer.parseInt(input));
-            if (trafficLightSecondsLeft < 0 || trafficLightSecondsLeft > 25) {
-                tfStartSeconds.setBackground(Color.RED);
-                tfStartSeconds.setText(input + " (Not between 0 and " + durationGreenPhase);
-                trafficLightSecondsLeft = -1;
-            } else {
-                tfStartSeconds.setBackground(Color.WHITE);
-            }
-            super.update(this.getGraphics());
-        } catch (Exception ex) {
-            trafficLightSecondsLeft = durationGreenPhase;
-        }
-        return trafficLightSecondsLeft;
-    }
-
-    private static void day22() {
-        EventQueue.invokeLater(() -> {
-            try {
-                MatheImAdvent frame = new MatheImAdvent();
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
 
     /**
      * School classes should be limited to 22 students. In Level 8 there are 132 students in whole.
@@ -215,4 +109,5 @@ public class MatheImAdvent extends JFrame {
         variance /= (iterations - 1);
         System.out.println("Sum: " + allBounty + " and mean: " + mean + " with variance: " + variance + " and standard deviation: " + Math.sqrt(variance));
     }
+
 }
