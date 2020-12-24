@@ -1,11 +1,20 @@
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class MatheImAdvent extends JFrame {
 
     public static void main(String[] args) {
         // day11(1000000);
-        day21();
+        // day21();
+        EventQueue.invokeLater(() -> {
+            try {
+                Day22 frame = new Day22();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 
